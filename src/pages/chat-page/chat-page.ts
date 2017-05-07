@@ -33,7 +33,7 @@ export class ChatPage implements OnInit {
   }
 
   getUsers(): void {
-  	this.userService.genUsers().then(users => this.users = users);
+  	this.userService.getUsers().then(users => this.users = users);
   }
 
 }
