@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { User } from '../../app/user';
+import { UserService } from '../../app/user.service';
 
 /**
  * Generated class for the ChatPage page.
@@ -11,14 +13,27 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 @Component({
   selector: 'page-chat-page',
   templateUrl: 'chat-page.html',
+  providers: [UserService]
 })
-export class ChatPage {
+export class ChatPage implements OnInit {
+	users: User[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+	ngOnInit(): void {
+		this.getUsers();
+	}
+
+  constructor(
+  	private userService: UserService,
+  	public navCtrl: NavController, 
+  	public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ChatPage');
+  }
+
+  getUsers(): void {
+  	this.userService.genUsers().then(users => this.users = users);
   }
 
 }
