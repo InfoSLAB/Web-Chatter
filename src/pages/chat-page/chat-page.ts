@@ -17,9 +17,11 @@ import { UserService } from '../../app/user.service';
 })
 export class ChatPage implements OnInit {
 	users: User[];
+  response: string;
 
 	ngOnInit(): void {
-		this.getUsers();
+    this.userService.sendRequest('register', { email: "fd0joker@gmail.com", username: "joker", pubkey: "public key" });
+    this.getResponse('register');
 	}
 
   constructor(
@@ -32,8 +34,21 @@ export class ChatPage implements OnInit {
     console.log('ionViewDidLoad ChatPage');
   }
 
-  getUsers(): void {
-  	this.userService.getUsers().then(users => this.users = users);
+  // getServerHello(): void {
+  //   this.userService.getServerHello().then(pubkey => this.pubkey = pubkey);
+  // }
+
+  getResponse(event) {
+    this.userService.getResponse(event).then(response => this.response = JSON.stringify(response));
   }
 
+  sendRequest(req) {
+    var tokens = req.split(' ');
+    var event = tokens[0];
+    tokens.shift();
+    var data = tokens.join(' ');
+    console.log(`send request: ${event}, ${data}`);
+    this.userService.sendRequest(event, data);
+    this.getResponse(event);
+  }
 }

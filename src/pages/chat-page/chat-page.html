@@ -16,14 +16,17 @@
 <ion-content padding>
 <ion-card>
   <ion-card-header>
-    Explore User List
+    server response: {{response}}
   </ion-card-header>
 
-  <ion-list>
+  <input #box (keyup)="0" />
+  <p>{{box.value}}</p>
+  <button ion-button (click)="sendRequest(box.value);">Send</button>
+<!--   <ion-list>
   	<button ion-item *ngFor="let user of users">
   		<p>{{user.id}}</p>
   		<p>{{user.username}}</p>
   	</button>
-  </ion-list>
+  </ion-list> -->
 </ion-card>
 </ion-content>
